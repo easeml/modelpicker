@@ -50,7 +50,7 @@ def modelpicker(predictions, labelset, budget):
 
         # If the coin is HEADS, query the label and update the posterior. Else no update necessary
         if zt == 1:
-            print("Please enter the label for instance with ID "+str(shuffled_indices[t-1])+":")
+            print("Please enter the label for the instance with ID "+str(shuffled_indices[t-1])+":")
             label_t = input()
             loss_t += (np.array((predictions[t-1, :] != int(label_t)) * 1) / ut)
             loss_t = loss_t.reshape(num_models, 1)
