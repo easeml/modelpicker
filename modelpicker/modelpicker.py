@@ -12,39 +12,38 @@ def model_picker(predictions, labelset, budget):
     num_models = np.size(predictions, 2)
     num_instances = np.size(predictions, 1)
 
-    # Initializations
-    eta_0 = np.sqrt(np.log(num_models)/2) # initialize the hyperparameter
+    # Initializations of hyperparameters
+    eta_t = np.sqrt(np.log(num_models)/2) # initialize the hyperparameter
     bias_scale = 1 # this linear scaling parameter is added to boost the coin tossing bias in case needed
 
-    # Edit the input data accordingly with the shuffled indices
-    shuffled_indices =
+    # Shuffle the indices to reduce time-dependency
+    shuffled_indices = np.random.permutation(num_instances)
     predictions = predictions[shuffled_indices, :]
 
 
-    # Initialize
-    loss_t = np.zeros(data._num_models) # loss per models
-    z_t_log = np.zeros(data._num_instances, dtype=int) # binary query decision
-    z_t_budget = np.zeros(data._num_instances, dtype=int) # binary query decision
-    posterior_t_log = np.zeros((data._num_instances, data._num_models)) # posterior log
-    mp_oracle = np.zeros(data._num_instances)
-    hidden_loss_log = np.zeros(data._num_instances, dtype=int)
-    It_log = np.zeros(data._num_instances, dtype=int)
-    posterior_t = np.ones(data._num_models)/data._num_models
+    # Initialization of posterior belief and momentary loss
+    loss_t = np.zeros(num_models) # loss per models
+    posterior_t = np.ones(num_models)/num_models
 
     # For each streaming data instance
-    for t in np.arange(1, data._num_instances+1, 1):
+    for t in np.arange(1, num_instances+1, 1):
 
         # Edit eta
-        eta = eta_0 / np.sqrt(t)
+        eta_t = eta_t / np.sqrt(t)
 
 
-        posterior_t = np.exp(-eta * (loss_t-np.min(loss_t)))
+        posterior_t = np.exp(-eta_t * (loss_t - np.min(loss_t)))
         # Note that above equation is equivalent to np.exp(-eta * loss_t).
         # `-np.min(loss_t)` is applied only to avoid entries being near zero for large eta*loss_t values before the normalization
         posterior_t  /= np.sum(posterior_t)  # normalize
 
-        # Log posterior_t
-        posterior_t_log[t-1, :] = posterior_t
+        ### Toss a coin if xt is in the region of disagreement, else skip
+
+
+
+
+
+        _coin_tossing()
 
         # Compute u_t
         u_t = _compute_u_t(data, posterior_t, predictions[t-1, :], bias_scale)
@@ -60,19 +59,8 @@ def model_picker(predictions, labelset, budget):
         # Is x_t in the region of disagreement? yes if dis_t>1, no otherwise
         dist_t = len(np.unique(predictions[t-1, :]))
 
-        # If u_t is in the region of agreement, don't query anything
-        if dist_t == 1:
-            u_t = 0
-            z_t = 0
-            z_t_log[t-1] = z_t
-        else:
-            #Else, make a random query decision
-            if u_t>0:
-                u_t = np.maximum(u_t, eta)
-            if u_t>1:
-                u_t=1
-            z_t = np.random.binomial(size=1, n=1, p=u_t)
-            z_t_log[t-1] = z_t
+
+       ------- input asking
 
         if z_t == 1:
             loss_t += (np.array((predictions[t-1, :] != oracle[t-1]) * 1) / u_t)
