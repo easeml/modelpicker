@@ -38,71 +38,44 @@ def model_picker(predictions, labelset, budget):
         posterior_t  /= np.sum(posterior_t)  # normalize
 
         ### Toss a coin if xt is in the region of disagreement, else skip
-
-
-
-
-
-        _coin_tossing()
-
-        # Compute u_t
-        u_t = _compute_u_t(data, posterior_t, predictions[t-1, :], bias_scale)
-
-        # Sanity checks for sampling probability
-        if u_t > 1:
-            u_t = 1
-        if np.logical_and(u_t>=0, u_t<=1):
-            u_t = u_t
+        if len(np.unique(predictions[t - 1, :])) == 1:
+            zt = 0
         else:
-            u_t = 0
+            (zt, ut) = _coin_tossing(predictions, posterior_t, bias_scale)
 
-        # Is x_t in the region of disagreement? yes if dis_t>1, no otherwise
-        dist_t = len(np.unique(predictions[t-1, :]))
-
-
-       ------- input asking
-
-        if z_t == 1:
-            loss_t += (np.array((predictions[t-1, :] != oracle[t-1]) * 1) / u_t)
-            loss_t = loss_t.reshape(data._num_models, 1)
+        # If the coin is HEADS, query the label and update the posterior. Else no update necessary
+        if zt == 1:
+            label_t = input(...)
+            loss_t += (np.array((predictions[t-1, :] != label_t]) * 1) / ut)
+            loss_t = loss_t.reshape(num_models, 1)
             loss_t = np.squeeze(np.asarray(loss_t))
 
-        m_star = np.random.choice(list(range(data._num_models)), p=posterior_t)
-        # Incur hidden loss
-        hidden_loss_log[t-1] = (predictions[t-1, m_star] != oracle[t-1]) * 1
-        # print(z_t)
-        # print(loss_t)
+    bestmodel = np.argmax(posterior_t)
 
-        # Terminate if it exceeds the budget
-        if np.sum(z_t_log) < budget:
-            z_t_budget[t-1] = z_t_log[t-1]
+    return (bestmodel, posterior_t)
 
 
-    # Labelling decisions as 0's and 1's
-    labelled_instances = z_t_log
-    ct_log = np.ones(data._num_instances, dtype=int)
+###
 
+def _coin_tossing(pred, post, num_classes, scale):
 
-    return (labelled_instances, ct_log, z_t_budget, hidden_loss_log, posterior_t_log)
-
-
-##
-
-def _compute_u_t(data, posterior_t, predictions_c, bias_scale):
+    ### Compute ut
 
     # Initialize possible u_t's
-    u_t_list = np.zeros(data._num_classes)
+    ut_list = np.zeros(num_classes)
 
     # Repeat for each class
-    for c in range(data._num_classes):
+    for c in range(num_classes):
         # Compute the loss of models if the label of the streamed data is "c"
-        loss_c = np.array(predictions_c != c)*1
+        loss_c = np.array(pred != c)*1
         #
         # Compute the respective u_t value (conditioned on class c)
-        term1 = np.inner(posterior_t, loss_c)
-        u_t_list[c] = term1*(1-term1)
+        innprod = np.inner(post, loss_c)
+        ut_list[c] = innprod*(1-innprod)
 
-    # Return the final u_t
-    u_t = bias_scale * np.max(u_t_list)
+    # Compute the final ut
+    ut = scale * np.max(ut_list)
+    # Toss the coin
+    zt = np.random.binomial(size=1, n=1, p=ut)
 
-    return u_t
+    return(zt, ut)
