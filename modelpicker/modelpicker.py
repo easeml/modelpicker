@@ -1,25 +1,24 @@
 import numpy as np
 """This code runs stream based model picker, but suitable for pool setting as well."""
 
-def model_picker(data, idx_budget, tuning_par, mode):
+def model_picker(predictions, labelset, budget):
     """
-    :param data:
-    :param streaming_data_indices:
-    :param tuning_par:
-    :param mode: modes include {predictive}
+    :param predictions:
+    :param labelset:
+    :param budget:
     :return:
     """
     # Set params
-    eta_0 = np.sqrt(np.log(data._num_models)/2)
-    if idx_budget == 'tuning mode':
-        budget = data._num_instances
-    else:
-        budget = data._budgets[idx_budget]
+    num_models = np.size(predictions, 2)
+    num_instances = np.size(predictions, 1)
+
+    # Initializations
+    eta_0 = np.sqrt(np.log(num_models)/2) # initialize the hyperparameter
+    bias_scale = 1 # this linear scaling parameter is added to boost the coin tossing bias in case needed
 
     # Edit the input data accordingly with the shuffled indices
     shuffled_indices =
-    predictions = data._predictions[shuffled_indices, :]
-    oracle = data._oracle[shuffled_indices]
+    predictions = predictions[shuffled_indices, :]
 
 
     # Initialize
@@ -48,7 +47,7 @@ def model_picker(data, idx_budget, tuning_par, mode):
         posterior_t_log[t-1, :] = posterior_t
 
         # Compute u_t
-        u_t = _compute_u_t(data, posterior_t, predictions[t-1, :], tuning_par)
+        u_t = _compute_u_t(data, posterior_t, predictions[t-1, :], bias_scale)
 
         # Sanity checks for sampling probability
         if u_t > 1:
@@ -101,7 +100,7 @@ def model_picker(data, idx_budget, tuning_par, mode):
 
 ##
 
-def _compute_u_t(data, posterior_t, predictions_c, tuning_par):
+def _compute_u_t(data, posterior_t, predictions_c, bias_scale):
 
     # Initialize possible u_t's
     u_t_list = np.zeros(data._num_classes)
@@ -116,6 +115,6 @@ def _compute_u_t(data, posterior_t, predictions_c, tuning_par):
         u_t_list[c] = term1*(1-term1)
 
     # Return the final u_t
-    u_t = tuning_par * np.max(u_t_list)
+    u_t = bias_scale * np.max(u_t_list)
 
     return u_t
