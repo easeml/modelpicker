@@ -1,4 +1,4 @@
-# Ease.ML/ModelPicker: Active Model Selection for Pretrained Classifiers
+# Active Model Selection for Pretrained Classifiers
 This repository aims to provide you the best pretrained model for your target distribution by keeping a minimal labeling cost. See how you can use it below.
 
 ## Usage
@@ -26,7 +26,7 @@ outputs:
                           The posterior belief on the models being best.
 ```
 ## Example
-A jupyter notebook `example.ipynb` is available in the main repository to illustrate the model selection process. 
+A jupyter notebook `example.ipynb` is available in the main repository to illustrate how to use the code with the arguments. 
 
 ## Citations
 
