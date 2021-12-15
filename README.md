@@ -19,7 +19,7 @@ arguments:
                           classes, a possible label set can be {0,1,2,3}. These labels should be consistent with the 
                           mapping used for prediction matrix as well.
 --budget BUDGET 
-                          AAn integer that indicates the labeling budget
+                          An integer that indicates the labeling budget
 
 outputs:
 --bestmodel  
