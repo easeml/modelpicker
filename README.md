@@ -23,7 +23,7 @@ arguments:
 outputs:
 --bestmodel  
                           The best model based on the queried labels 
---posterior 
+--beliefs 
                           The posterior belief on the models being best.
 ```
 ## Example
