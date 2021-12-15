@@ -1,5 +1,5 @@
-Ease.ML/ModelPicker: Active Model Selection for Pre-trained ML Classifiers
-
+## Ease.ML/ModelPicker: Active Model Selection for Pre-trained ML Classifiers
+This repository aims to provide you the best pretrained model with minimum labeling cost. See how you can use it below.
 
 ## Usage
 To run experiment on a set of collected pre-trained models, run this command:
@@ -34,7 +34,7 @@ A jupyter notebook `example.ipynb` is available in the main repository to illust
 % Algorithm and Theory 
 @article{karimigurel2021mp,
   title={Online Active Model Selection for Pretrained Classifiers},
-  author={Karimi, Mohammad Reza and G/"urel, Nezihe Merve and Karlas, Bojan and Rausch, Johannes and Zhang, Ce and Krause, Andreas},
+  author={Karimi, Mohammad Reza and Gurel, Nezihe Merve and Karlas, Bojan and Rausch, Johannes and Zhang, Ce and Krause, Andreas},
   journal={International Conference on Artificial Intelligence and Statistics},
   volume={130},
   year={2021}
