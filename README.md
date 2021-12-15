@@ -15,8 +15,9 @@ arguments:
                           amount of unlabeled instances available at time 𝑡, and 𝑘 is the number of models. Each 
                           prediction is mapped to an integer.
 --labelset LABELSET 
-                          A numpy array consisting of possible labels. These labels should be consisted with the 
-                          mapping used for predictionn matrix.
+                          A numpy array consisting of label set elements. For instance, for a dataset consisting of 4 
+                          classes, a possible label set can be {0,1,2,3}. These labels should be consistent with the 
+                          mapping used for prediction matrix as well.
 --budget BUDGET 
                           AAn integer that indicates the labeling budget
 
