@@ -1,4 +1,4 @@
-## Ease.ML/ModelPicker: Active Model Selection for Pre-trained ML Classifiers
+# Ease.ML/ModelPicker: Active Model Selection for Pre-trained ML Classifiers
 This repository aims to provide you the best pretrained model with minimum labeling cost. See how you can use it below.
 
 ## Usage
