@@ -12,7 +12,8 @@ python3 -m modelpicker [--predictions ] [--labelset] [--budget]
 arguments:
 --predictions PREDICTIONS 
                           A numpy array of model predictions. This is a matrix of 𝑁×𝑘 predictions where 𝑁 is the 
-                          amount of unlabeled instances available at time 𝑡, and 𝑘 is the number of models. Each prediction is mapped to an integer.
+                          amount of unlabeled instances available at time 𝑡, and 𝑘 is the number of models. Each 
+                          prediction is mapped to an integer.
 --labelset LABELSET 
                           A numpy array consisting of possible labels. These labels should be consisted with the 
                           mapping used for predictionn matrix.
