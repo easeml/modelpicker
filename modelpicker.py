@@ -1,4 +1,5 @@
 import numpy as np
+import sys
 """This code runs stream based model picker, but suitable for pool setting as well."""
 
 def modelpicker(predictions, labelset, budget):
@@ -94,3 +95,20 @@ def _coin_tossing(pred, post, labelset):
     zt = np.random.binomial(size=1, n=1, p=ut)
 
     return(zt, ut)
+
+if __name__ == "__main__":
+    args = sys.argv[1:]
+    if len(args) < 3:
+        print("Missing arguments")
+        print(
+            "Usage: python -m modelpicker [predictions] [labelset] [budget]")
+        exit(1)
+    else:
+        if len(args) == 3:
+            modelpicker(args[0],
+                        args[1],
+                        int(args[2]))
+        else:
+            raise ValueError("Too many arguments")
+
+
