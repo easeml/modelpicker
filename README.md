@@ -1,5 +1,5 @@
 # Ease.ML/ModelPicker: Active Model Selection for Pretrained Classifiers
-This repository aims to provide you the best pretrained model with minimum labeling cost. See how you can use it below.
+This repository aims to provide you the best pretrained model for your target distribution by keeping a minimal labeling cost. See how you can use it below.
 
 ## Usage
 To run experiment on a set of collected pre-trained models, run this command:
