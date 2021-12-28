@@ -43,7 +43,7 @@ python3 modelpicker.py [--predictions] [--labelset] [--budget]
 ```buildoutcfg
 arguments:
 --predictions PREDICTIONS 
-                          A CSV file consisting of model predictions. This is a 2D array of model predictions on your freshly collected data with size 𝑁×𝑘 where 𝑁                           is the amount of unlabeled instances available at time 𝑡, and 𝑘 is the number of models. Each 
+                          The name of your CSV file consisting of model predictions. This is a 2D array of model predictions on your freshly collected data with size 𝑁×𝑘 where 𝑁                           is the amount of unlabeled instances available at time 𝑡, and 𝑘 is the number of models. Each 
                           prediction is mapped to an integer.
 --labelspace LABELS
                           A CSV consisting of elements of label space. For instance, for a dataset consisting of 4 
