@@ -43,12 +43,14 @@ python3 modelpicker.py [--predictions] [--labelset] [--budget]
 ```buildoutcfg
 arguments:
 --predictions PREDICTIONS 
-                          The name of your CSV file consisting of model predictions. This is a 2D array of model predictions on your freshly collected data with size 𝑁×𝑘 where 𝑁                           is the amount of unlabeled instances available at time 𝑡, and 𝑘 is the number of models. Each 
-                          prediction is mapped to an integer.
---labelspace LABELS
-                          A CSV consisting of elements of label space. For instance, for a dataset consisting of 4 
-                          classes, a possible label space can be {0,1,2,3}. These labels should be consistent with the 
-                          mapping used for prediction matrix as well.
+                          The name of your CSV file consisting of model predictions. This is a 2D array of 
+                          model predictions on your freshly collected data with size 𝑁×𝑘 where 𝑁 is the 
+                          amount of unlabeled instances available at time 𝑡, and 𝑘 is the number of models. 
+                          Each prediction is mapped to an integer.
+--labelspace LABELSPACE
+                          A CSV consisting of elements of label space. For instance, for a dataset consisting 
+                          of 4 classes, a possible label space can be {0,1,2,3}. These labels should be consistent 
+                          with the mapping used for prediction matrix as well.
 --budget BUDGET 
                           An integer that indicates the labeling budget
 
@@ -58,7 +60,12 @@ outputs:
 --beliefs 
                           The posterior belief on the models being best.
 ```
-## Example
+### Example
+Using the emotion detection task and predictions of pretrained models in ```data/```, we can run the following command to label 10 instances to find out the best model for this task, which will in turn be used to make predictions on the remaining unlabelled instances.
+```buildoutcfg
+python3 modelpicker.py data/emocontext/predictions data/emocontext/labelspace 10
+```
+
 A jupyter notebook [`example.ipynb`](https://github.com/easeml/modelpicker/blob/main/example.ipynb) is available in the main repository to illustrate how to use the code with the arguments. 
 
 ## Citations
