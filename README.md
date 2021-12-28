@@ -11,7 +11,7 @@ There are several scenarios where you can employ ```modelpicker```. The leading 
 - The ```modelpicker``` immediately applies to all scenarios in which you would like to select the model with the highest generalization accuracy on the your target task. The term "model" here refer to any distinction between classifiers ranging from the training/validation sets they are trained on to architectures or entirely different ML models.
 
 ### Principle
-The ```modelpicker``` scans the data, and it makes a random query decision upon seeing each instance. This random decision is simply a coin flip with an adaptive bias. At each round, the bias is computed using the evidence on the partially labelled instances as well as the disagreement that instance creates among the pretrained models. Below is a very general overview of the process. We refer to our paper [here](http://proceedings.mlr.press/v130/reza-karimi21a/reza-karimi21a.pdf) for further details.
+The ```modelpicker``` scans the data, and it makes a random query decision upon seeing each instance. This random decision is simply a coin flip with an adaptive bias. If it comes heads, ```modelpicker``` queries the label for this instance, else it does not. At each round, the bias is computed using the evidence on the previously labelled instances as well as the disagreement this individual instance creates among the pretrained models. Below is a general overview of the coin flipping principle. We refer to our paper [here](http://proceedings.mlr.press/v130/reza-karimi21a/reza-karimi21a.pdf) for further details.
 
 <p align="center">
   <img src="modelpicker.png" alt="modelpicker" width="800"/>
