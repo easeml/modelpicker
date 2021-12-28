@@ -44,7 +44,7 @@ def modelpicker(predictions, labelset, budget):
         if len(np.unique(predictions[t - 1, :])) == 1:
             zt = 0
         else:
-            (zt, ut) = _coin_tossing(predictions[t - 1, :], posterior_t, labelset)
+            (zt, ut) = _coin_tossing(predictions[t - 1, :], posterior_t, labelspace)
 
         # Update the cost
         cost += zt
@@ -68,19 +68,19 @@ def modelpicker(predictions, labelset, budget):
 
 ###
 
-def _coin_tossing(pred, post, labelset):
+def _coin_tossing(pred, post, labelspace):
 
     ### Compute ut
 
     # Initialize possible u_t's
-    num_classes = len(labelset)
+    num_classes = len(labelspace)
     num_models = len(pred)
     ut_list = np.zeros(num_classes)
 
     # Repeat for each class
     for i in range(num_classes):
         # Compute the loss of models if the label of the streamed data is "c"
-        loss_c = np.array((pred != int(labelset[i]))*1)
+        loss_c = np.array((pred != int(labelspace[i]))*1)
         ### make sure they are column vectors
         loss_c = loss_c.reshape(num_models, 1)
         loss_c = np.squeeze(np.asarray(loss_c))
@@ -102,24 +102,24 @@ if __name__ == "__main__":
     if len(args) < 3:
         print("Missing arguments")
         print(
-            "Usage: python modelpicker.py [predictions] [labelset] [budget]")
+            "Usage: python modelpicker.py [predictions] [labelspace] [budget]")
         exit(1)
     else:
         if len(args) == 3:
             # Read csv files
             filename_predictions = args[0]
-            filename_labelset = args[1]
+            filename_labelspace = args[1]
 
             file_predictions = open(filename_predictions+'.csv')
             predictions = np.loadtxt(file_predictions, delimiter=",")
 
-            file_labelset = open(filename_labelset+'.csv')
-            labelset = np.loadtxt(file_labelset, delimiter=",")
+            file_labelspace = open(filename_labelspace+'.csv')
+            labelspace = np.loadtxt(file_labelspace, delimiter=",")
 
             budget = int(args[2])
 
             (bestmodel, posterior_t) = modelpicker(predictions,
-                        labelset,
+                        labelspace,
                         budget)
             print("Best model ID: " + str(bestmodel))
         else:
