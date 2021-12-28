@@ -2,7 +2,7 @@ import numpy as np
 import sys
 """This code runs stream based model picker, but suitable for pool setting as well."""
 
-def modelpicker(predictions, labelset, budget):
+def modelpicker(predictions, labelspace, budget):
     """
     :param predictions:
     :param labelset:
