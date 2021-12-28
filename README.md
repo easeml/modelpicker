@@ -26,7 +26,7 @@ The ```modelpicker``` scans the data, and it makes a random query decision upon 
 ```modelpicker``` is a strategy that speciliazes on selecting most informative instances with a mere aim to find the best pretrained model. Yet there are several other strategies to select the most informative instances although they have different objectives than that of modelpicker. Despite that, these active and/or online learning strategies are in general very competitive baselines measuring/sorting the uncertainty of data instances. We adapted those strategies for model selection and performed exhaustive comparisons to modelpicker, in which we observed a significant benefit in using ```modelpicker```. Below results illustrate a summary of the comparison. For other evaluation metrices other than success probabilities, such as regret and accuracy gaps, we refer to [here](https://github.com/DS3Lab/online-active-model-selection) and [here](http://proceedings.mlr.press/v130/reza-karimi21a/reza-karimi21a.pdf) for a detailed look.
 
 <p align="center">
-  <img src="comparison.png" alt="comparison" width="900"/>
+  <img src="comparison.png" alt="comparison" width="1000"/>
 </p>
 <p align="center">
     <em>The success probabilities (probability of outputting the true best model) indicate that modelpicker has a significant improvement over other selective sampling baselines and consistently over different datasets. Note that it takes only 12% of labeling effort for modelpicker to output the best model confidently on ImageNet dataset!</em>
