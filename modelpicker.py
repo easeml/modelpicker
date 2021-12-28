@@ -96,19 +96,31 @@ def _coin_tossing(pred, post, labelset):
 
     return(zt, ut)
 
+
 if __name__ == "__main__":
     args = sys.argv[1:]
     if len(args) < 3:
         print("Missing arguments")
         print(
-            "Usage: python -m modelpicker [predictions] [labelset] [budget]")
+            "Usage: python modelpicker.py [predictions] [labelset] [budget]")
         exit(1)
     else:
         if len(args) == 3:
-            modelpicker(args[0],
-                        args[1],
-                        int(args[2]))
+            # Read csv files
+            filename_predictions = args[0]
+            filename_labelset = args[1]
+
+            file_predictions = open(filename_predictions+'.csv')
+            predictions = np.loadtxt(file_predictions, delimiter=",")
+
+            file_labelset = open(filename_labelset+'.csv')
+            labelset = np.loadtxt(file_labelset, delimiter=",")
+
+            budget = int(args[2])
+
+            (bestmodel, posterior_t) = modelpicker(predictions,
+                        labelset,
+                        budget)
+            print("Best model ID: " + str(bestmodel))
         else:
             raise ValueError("Too many arguments")
-
-
