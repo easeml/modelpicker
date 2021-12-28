@@ -48,7 +48,7 @@ arguments:
                           amount of unlabeled instances available at time 𝑡, and 𝑘 is the number of models. 
                           Each prediction is mapped to an integer.
 --labelspace LABELSPACE
-                          A CSV consisting of elements of label space. For instance, for a dataset consisting 
+                          The name of your CSV file consisting of elements of label space. For instance, for a dataset consisting 
                           of 4 classes, a possible label space can be {0,1,2,3}. These labels should be consistent 
                           with the mapping used for prediction matrix as well.
 --budget BUDGET 
