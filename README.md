@@ -1,4 +1,5 @@
 # Data Labeling for Testing and Model Selection
+![GitHub](https://img.shields.io/github/license/easeml/snoopy)
 [![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-370/)
 
 This repository aims to provide you the state-of-the-art algorithm that performs active data labeling for testing and model selection, the so-called [```modelpicker```](http://proceedings.mlr.press/v130/reza-karimi21a/reza-karimi21a.pdf). The ```modelpicker``` algorithm queries the labels of the most informative data instances such that the model with the highest test accuracy for your target prediction task in hand can be found with a minimal labeling cost. 
