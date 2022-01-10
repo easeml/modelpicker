@@ -74,7 +74,7 @@ A jupyter notebook [`example.ipynb`](https://github.com/easeml/modelpicker/blob/
 
 ```bibtex
 % Algorithm and Theory 
-@article{karimigurel2021mp,
+@article{karimi2021mp,
   title={Online Active Model Selection for Pretrained Classifiers},
   author={Karimi, Mohammad Reza and Gurel, Nezihe Merve and Karlas, Bojan and Rausch, Johannes and Zhang, Ce and Krause, Andreas},
   journal={International Conference on Artificial Intelligence and Statistics},
