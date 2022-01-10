@@ -1,0 +1,2 @@
+# Main package dependencies
+numpy >= 1.18
